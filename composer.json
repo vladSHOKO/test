@@ -1,0 +1,23 @@
+{
+    "name": "module/twenty",
+    "type": "project",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/classes"
+        },
+        "files": [
+            "src/core.php",
+            "logic/form_logic.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "vladSHOKO",
+            "email": "vladislav_kuzminov.00@mail.ru"
+        }
+    ],
+    "require": {
+        "amocrm/amocrm-api-library": "^1.10"
+    }
+}
