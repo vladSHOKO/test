@@ -2,8 +2,17 @@
 
 namespace App;
 
-#$amoCRMController = new AmoCRMApiController();
-#$amoCRMClient = $amoCRMController->setConnection();
+use AmoCRM\Client\AmoCRMApiClient as AmoCRMApiClient;
+
+include "../src/classes/AmoCRMApiController.php";
+
+
+$api = new AmoCRMApiController();
+$api->addOneComplex();
+
+
+
+
 
 
 
