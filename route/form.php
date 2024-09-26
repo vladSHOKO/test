@@ -1,5 +1,5 @@
 <div class="main-content">
-    <form class="form" autocomplete="off" action='../logic/form_logic.php' method='post'>
+    <form class="form" autocomplete="off" action="/index.php" method='post'>
         <div class = "form-data" >
         <div>
             <label>Имя</label>

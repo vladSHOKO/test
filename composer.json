@@ -8,8 +8,7 @@
 
         },
         "files": [
-            "src/core.php",
-            "logic/form_logic.php"
+            "src/core.php"
         ]
     },
     "authors": [

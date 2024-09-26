@@ -19,21 +19,22 @@ class AmoCRMApiController
 
     public string $accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjY2MWUwNjc1ZTBlMzI3NzYxMDJhNDkzMTdjYTc0YzQ5Y2M3MTQxN2ZlMmQ1NTJjZTMyNmJmMTMwM2NjNTE0NjFmMGMxM2FkMTRlOTY5YTEzIn0.eyJhdWQiOiIzYzhhMDUyZS1jZjI1LTRjYjgtYmIxNi1mMjA5ZmFhMDA1Y2YiLCJqdGkiOiI2NjFlMDY3NWUwZTMyNzc2MTAyYTQ5MzE3Y2E3NGM0OWNjNzE0MTdmZTJkNTUyY2UzMjZiZjEzMDNjYzUxNDYxZjBjMTNhZDE0ZTk2OWExMyIsImlhdCI6MTcyNzAyODMyNSwibmJmIjoxNzI3MDI4MzI1LCJleHAiOjE3NDU5NzEyMDAsInN1YiI6IjExNTUyMDk4IiwiZ3JhbnRfdHlwZSI6IiIsImFjY291bnRfaWQiOjMxOTY1Mzk0LCJiYXNlX2RvbWFpbiI6ImFtb2NybS5ydSIsInZlcnNpb24iOjIsInNjb3BlcyI6WyJjcm0iLCJmaWxlcyIsImZpbGVzX2RlbGV0ZSIsIm5vdGlmaWNhdGlvbnMiLCJwdXNoX25vdGlmaWNhdGlvbnMiXSwiaGFzaF91dWlkIjoiYzdiMjAxMjAtMGMzMS00ZmNhLWFmMWEtNThhYjJlOTI5ZDg2IiwiYXBpX2RvbWFpbiI6ImFwaS1iLmFtb2NybS5ydSJ9.P9YYLPSyh7RGiU-G7ORgBczadN1SJalJsC5tur6enGR5_3rcS_z85ljxWfb2ojsF5lFFeijdF7Wst2odmATLO7IkozjQdaXYhWiibrM-kI1rtNe5j4m_TLvUHjJ3HnUtfyYAb9srdwZ_6peFoPWgOS1ZjSsDaUdYu0cKUjeUWo1ES6PjiWG3ZtZ6B-EKSt2ZKLxrg1p9DZflT783Czo5s0tJ9DNoxPkRLVC4XWBTd1AlKFaoh3ahRJGyFNErx5Qk3nWyFdGVnR8BcwNxcc-M1gCA5HqlbJwJ_UXSgRz8a6x79P3ae-35_4wMcMhJuXNeTLE6uSfdy0oMSFFvjwwUWA';
 
+    public AmoCRMApiClient $apiClient;
+
     /**
      * @throws InvalidArgumentException
      */
-    public function setConnection(): AmoCRMApiClient
+    public function __construct()
     {
         $apiClient = new AmoCRMApiClient();
         $longLivedAccessToken = new LongLivedAccessToken($this->accessToken);
         $apiClient->setAccessToken($longLivedAccessToken)->setAccountBaseDomain($this->amoCRMDomain);
-        return $apiClient;
+        $this->apiClient = $apiClient;
     }
 
     public function addOneComplex(): void
     {
-        $apiClient = $this->setConnection();
-        $apiClient->leads()->addOneComplex($this->createOneLeadModel());
+        $this->apiClient->leads()->addOneComplex($this->createOneLeadModel());
     }
 
     public function createOneLeadModel(): LeadModel
@@ -56,48 +57,6 @@ class AmoCRMApiController
         $leadModel = new LeadModel();
         $leadModel->setName("Order by website" . date("Y-m-d H:i:s"))->setContacts((new ContactsCollection())->add((new ContactModel())->setFirstName($_POST['username'])->setCreatedAt(time())->setCustomFieldsValues($customContactFieldsValuesCollection)))->setCreatedAt(time())->setCustomFieldsValues($customMetaDataFieldValuesCollection);
         return $leadModel;
-
-//        $model = [[
-//            "name" => "Order by website" . date("Y-m-d H:i:s"),
-//            "_embedded" => [
-//                "contacts" => [
-//                    [
-//                        "first_name" => $_POST['username'],
-//                        "created_at" => time(),
-//                        "custom_fields_values" => [
-//                            [
-//                                "field_id" => 232363,
-//                                "values" => [
-//                                    "enum_id" => 129229,
-//                                    "value" => $_POST['user-number']
-//                                ]
-//                            ]
-//                        ]
-//                    ]
-//                ]
-//            ],
-//            "created_at" => time(),
-//            "custom_fields_values" => [
-//                [
-//                    "field_id" => 239987,
-//                    "values" => [
-//                        [
-//                            "value" => "Website"
-//                        ]
-//                    ]
-//                ],
-//                [
-//                    "field_id" => 323275,
-//                    "values" => [
-//                        [
-//                            "value" => $_POST['comment']
-//                        ]
-//                    ]
-//                ]
-//            ]
-//        ]];
-//        return json_encode($model);
-
     }
 
 }

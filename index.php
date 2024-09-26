@@ -2,15 +2,9 @@
 
 namespace App;
 
-use AmoCRM\Client\AmoCRMApiClient;
 
 require_once __DIR__ . "/vendor/autoload.php";
-
-//$api = new AmoCRMApiController();
-//
-//echo "<pre>";
-//print_r($api->setConnection()->leads()->get( $filter = null, array($with = [])));
-//echo "</pre>";
+include __DIR__ . "/data/form_data.php";
 
 ?>
 <!DOCTYPE html>
