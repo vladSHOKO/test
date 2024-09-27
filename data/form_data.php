@@ -2,7 +2,6 @@
 
 namespace App;
 
-use App\AmoCRMApiController;
 
 if (isset($_POST['username']) && isset($_POST['user-number'])) {
     $amoApi = new AmoCRMApiController();
