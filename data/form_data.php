@@ -5,10 +5,11 @@ namespace App;
 use App\AmoCRMApiController;
 
 if (isset($_POST['username']) && isset($_POST['user-number'])) {
-    $api = new AmoCRMApiController();
-    $api->addOneComplex();
+    $amoApi = new AmoCRMApiController();
+    $amoApi->addOneComplex();
+
+    $bitrix24Api = new Bitrix24CRMApiController();
+    $bitrix24Api->addDeal();
 }
 
-echo "<pre>";
-var_dump($api);
-echo "</pre>";
+

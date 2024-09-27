@@ -6,12 +6,14 @@ use AmoCRM\Client\AmoCRMApiClient;
 use AmoCRM\Client\LongLivedAccessToken;
 use AmoCRM\Collections\ContactsCollection;
 use AmoCRM\Collections\CustomFieldsValuesCollection;
+use AmoCRM\Collections\TagsCollection;
 use AmoCRM\Exceptions\InvalidArgumentException;
 use AmoCRM\Models\ContactModel;
 use AmoCRM\Models\CustomFieldsValues\TextCustomFieldValuesModel;
 use AmoCRM\Models\CustomFieldsValues\ValueCollections\TextCustomFieldValueCollection;
 use AmoCRM\Models\CustomFieldsValues\ValueModels\TextCustomFieldValueModel;
 use AmoCRM\Models\LeadModel;
+use AmoCRM\Models\TagModel;
 
 class AmoCRMApiController
 {
@@ -49,13 +51,13 @@ class AmoCRMApiController
         $commentCustomFieldValueModel = new TextCustomFieldValuesModel();
 
         $commentCustomFieldValueModel->setFieldId(323275)->setValues((new TextCustomFieldValueCollection())->add((new TextCustomFieldValueModel())->setValue($_POST['comment'])));
-        $sourceCustomFieldValueModel->setFieldId(239987)->setValues((new TextCustomFieldValueCollection())->add((new TextCustomFieldValueModel())->setValue('Website')));
+        $sourceCustomFieldValueModel->setFieldId(239987)->setValues((new TextCustomFieldValueCollection())->add((new TextCustomFieldValueModel())->setValue('Сайт')));
 
         $customMetaDataFieldValuesCollection->add($sourceCustomFieldValueModel);
         $customMetaDataFieldValuesCollection->add($commentCustomFieldValueModel);
 
         $leadModel = new LeadModel();
-        $leadModel->setName("Order by website" . date("Y-m-d H:i:s"))->setContacts((new ContactsCollection())->add((new ContactModel())->setFirstName($_POST['username'])->setCreatedAt(time())->setCustomFieldsValues($customContactFieldsValuesCollection)))->setCreatedAt(time())->setCustomFieldsValues($customMetaDataFieldValuesCollection);
+        $leadModel->setName("Заказ с сайта " . date("Y-m-d H:i:s", time() + 10800))->setContacts((new ContactsCollection())->add((new ContactModel())->setFirstName($_POST['username'])->setCreatedAt(time())->setCustomFieldsValues($customContactFieldsValuesCollection)))->setCreatedAt(time())->setCustomFieldsValues($customMetaDataFieldValuesCollection)->setTags((new TagsCollection())->add((new TagModel())->setName('сайт')));
         return $leadModel;
     }
 
