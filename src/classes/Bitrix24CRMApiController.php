@@ -31,7 +31,8 @@ class Bitrix24CRMApiController
         return $this->bitrix24->addDeal([
             'TITLE' => 'Сделка с сайта ' . date("Y-m-d H:i:s", time() + 10800),
             'CONTACT_ID' => $this->addContact(),
-            'COMMENTS' => $_POST['comment']
+            'COMMENTS' => $_POST['comment'],
+            'UF_CRM_1727508484685' => 'Сайт'
         ]);
 
     }

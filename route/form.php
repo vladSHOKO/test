@@ -1,5 +1,5 @@
 <div class="main-content">
-    <form class="form" autocomplete="off" action="/index.php" method='post'>
+    <form class="form" autocomplete="off" action="/" method='post'>
         <div class="form-data">
             <div>
                 <label>Имя</label>
